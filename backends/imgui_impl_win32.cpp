@@ -168,7 +168,7 @@ bool    ImGui_ImplWin32_Init(void* hwnd)
     {
         "xinput1_4.dll",   // Windows 8+
         "xinput1_3.dll",   // DirectX SDK
-        "xinput9_1_0.dll", // Windows Vista, Windows 7
+        "xinput9_1_0.dll", // Windows Vista, Windows 7E
         "xinput1_2.dll",   // DirectX SDK
         "xinput1_1.dll"    // DirectX SDK
     };
