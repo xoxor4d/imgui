@@ -6842,7 +6842,7 @@ bool ImGui::Begin(const char* name, bool* p_open, ImGuiWindowFlags flags)
         {
             // Docking: Dragging a dockable window (or any of its child) turns it into a drag and drop source.
             // We need to do this _before_ we overwrite window->DC.LastItemId below because BeginDockableDragDropSource() also overwrites it.
-            if (g.MovingWindow == window && g.IO.KeyShift == false)
+            if (g.MovingWindow == window)
                 if ((window->RootWindowDockTree->Flags & ImGuiWindowFlags_NoDocking) == 0)
                     BeginDockableDragDropSource(window);
 
@@ -16019,7 +16019,8 @@ void ImGui::BeginDockableDragDropSource(ImGuiWindow* window)
     g.LastItemData.ID = window->MoveId;
     window = window->RootWindowDockTree;
     IM_ASSERT((window->Flags & ImGuiWindowFlags_NoDocking) == 0);
-    bool is_drag_docking = ImRect(0, 0, window->SizeFull.x, GetFrameHeight()).Contains(g.ActiveIdClickOffset); // FIXME-DOCKING: Need to make this stateful and explicit
+    //bool is_drag_docking = ImRect(0, 0, window->SizeFull.x, GetFrameHeight()).Contains(g.ActiveIdClickOffset); // FIXME-DOCKING: Need to make this stateful and explicit
+    bool is_drag_docking = g.IO.KeyShift || ImRect(0, 0, window->SizeFull.x, GetFrameHeight()).Contains(g.ActiveIdClickOffset);
     if (is_drag_docking && BeginDragDropSource(ImGuiDragDropFlags_SourceNoPreviewTooltip | ImGuiDragDropFlags_SourceNoHoldToOpenOthers | ImGuiDragDropFlags_SourceAutoExpirePayload))
     {
         SetDragDropPayload(IMGUI_PAYLOAD_TYPE_WINDOW, &window, sizeof(window));
