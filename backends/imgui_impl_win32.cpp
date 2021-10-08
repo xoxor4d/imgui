@@ -271,10 +271,11 @@ static void ImGui_ImplWin32_UpdateMousePos()
         {
             // Single viewport mode: mouse position in client window coordinates (io.MousePos is (0,0) when the mouse is on the upper-left corner of the app window.)
             // This is the position you can get with GetCursorPos() + ScreenToClient() or from WM_MOUSEMOVE.
-            if (focused_hwnd == bd->hWnd)
+            //if (focused_hwnd == bd->hWnd)
             {
                 POINT mouse_client_pos = mouse_screen_pos;
-                ::ScreenToClient(focused_hwnd, &mouse_client_pos);
+                //::ScreenToClient(focused_hwnd, &mouse_client_pos);
+                ::ScreenToClient(bd->hWnd, &mouse_client_pos);
                 io.MousePos = ImVec2((float)mouse_client_pos.x, (float)mouse_client_pos.y);
             }
         }
