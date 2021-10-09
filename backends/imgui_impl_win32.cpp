@@ -249,6 +249,9 @@ static void ImGui_ImplWin32_UpdateMousePos()
     io.MousePos = ImVec2(-FLT_MAX, -FLT_MAX);
     io.MouseHoveredViewport = 0;
 
+    // AAAAAAAAAAAAAAAAAAA
+    // we always need to update the mouse position even if some other window is focused
+    /* 
     // Obtain focused and hovered window. We forward mouse input when focused or when hovered (and no other window is capturing)
     HWND focused_window = ::GetForegroundWindow();
     HWND hovered_window = bd->MouseHwnd;
@@ -258,7 +261,8 @@ static void ImGui_ImplWin32_UpdateMousePos()
     else if (focused_window && (focused_window == bd->hWnd || ::IsChild(focused_window, bd->hWnd) || ImGui::FindViewportByPlatformHandle((void*)focused_window)))
         mouse_window = focused_window;
     if (mouse_window == NULL)
-        return;
+        return; 
+    */
 
     // Set OS mouse position from Dear ImGui if requested (rarely used, only when ImGuiConfigFlags_NavEnableSetMousePos is enabled by user)
     // (When multi-viewports are enabled, all Dear ImGui positions are same as OS positions)
@@ -266,7 +270,7 @@ static void ImGui_ImplWin32_UpdateMousePos()
     {
         POINT pos = { (int)mouse_pos_prev.x, (int)mouse_pos_prev.y };
         if ((io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) == 0)
-            ::ClientToScreen(mouse_window, &pos);
+            ::ClientToScreen(bd->hWnd, &pos); // AAAAAAAAAAAAAAAAAAAAAA ^
         ::SetCursorPos(pos.x, pos.y);
     }
 
