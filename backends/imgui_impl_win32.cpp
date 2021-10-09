@@ -398,6 +398,14 @@ void    ImGui_ImplWin32_NewFrame()
     io.DeltaTime = (float)(current_time - bd->Time) / bd->TicksPerSecond;
     bd->Time = current_time;
 
+    // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    // revert change from commit 0b06c4b2b0281a8aced61f276bb3f6ad0f6f9180
+    // Read keyboard modifiers inputs
+    io.KeyCtrl = (::GetKeyState(VK_CONTROL) & 0x8000) != 0;
+    io.KeyShift = (::GetKeyState(VK_SHIFT) & 0x8000) != 0;
+    io.KeyAlt = (::GetKeyState(VK_MENU) & 0x8000) != 0;
+    io.KeySuper = false;
+
     // Update OS mouse position
     ImGui_ImplWin32_UpdateMousePos();
 
