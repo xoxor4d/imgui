@@ -273,7 +273,7 @@ static void ImGui_ImplWin32_UpdateMouseData()
 
     HWND focused_window = ::GetForegroundWindow();
     const bool is_app_focused = (focused_window && (focused_window == bd->hWnd || ::IsChild(focused_window, bd->hWnd) || ImGui::FindViewportByPlatformHandle((void*)focused_window)));
-    if (is_app_focused)
+    //if (is_app_focused) // always update mouse pos
     {
         // (Optional) Set OS mouse position from Dear ImGui if requested (rarely used, only when ImGuiConfigFlags_NavEnableSetMousePos is enabled by user)
         // When multi-viewports are enabled, all Dear ImGui positions are same as OS positions.
